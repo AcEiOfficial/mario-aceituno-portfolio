@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mario Aceituno — Portfolio Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1626;
+    --panel:#161F33;
+    --panel-2:#1C2740;
+    --grid-line: rgba(95,207,192,0.09);
+    --amber:#E8A33D;
+    --teal:#5FCFC0;
+    --paper:#F3EFE7;
+    --muted:#8C97B0;
+    --line: rgba(243,239,231,0.14);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--ink);
+    color: var(--paper);
+    font-family:'Inter', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  /* Fixed lake artwork background */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:-3;
+    background-image:url('lake-bg.jpg');
+    background-size:cover;
+    background-position:center 30%;
+  }
+  /* Dark overlay + grid, tuned for text contrast (WCAG AA against --paper / --muted) */
+  body::after{
+    content:"";
+    position:fixed; inset:0; z-index:-2;
+    background:
+      linear-gradient(180deg, rgba(10,16,28,0.86) 0%, rgba(10,16,28,0.91) 35%, rgba(10,16,28,0.95) 100%),
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,22,38,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 0;
+  }
+  .logo{
+    font-family:'Fraunces', serif; font-weight:600; font-size:18px;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--teal);}
+  .nav-links{display:flex; align-items:center; gap:36px;}
+  .nav-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; text-transform:uppercase; letter-spacing:0.12em;
+    color:var(--muted);
+    transition: color .2s ease;
+  }
+  .nav-links a:hover{color:var(--paper);}
+  .btn-cv{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink); background:var(--amber);
+    padding:10px 16px; border-radius:var(--radius);
+    border:1px solid var(--amber);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn-cv:hover{ background:#f2b458; transform:translateY(-1px);}
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+
+  /* ---------- Language switcher ---------- */
+  .lang-switcher{ position:relative; }
+  .lang-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--paper); background:transparent;
+    padding:10px 14px; border-radius:var(--radius);
+    border:1px solid var(--line);
+    display:flex; align-items:center; gap:8px;
+    cursor:pointer; transition: border-color .15s ease;
+  }
+  .lang-btn:hover{ border-color:var(--teal); }
+  .lang-btn .chevron{ font-size:9px; opacity:0.7; transition:transform .15s ease; }
+  .lang-switcher.open .chevron{ transform:rotate(180deg); }
+  .lang-menu{
+    position:absolute; top:calc(100% + 8px); right:0;
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius);
+    min-width:150px;
+    display:none;
+    overflow:hidden;
+    z-index:60;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  }
+  .lang-switcher.open .lang-menu{ display:block; }
+  .lang-option{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    width:100%; padding:11px 14px;
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--muted); background:transparent; border:none;
+    cursor:pointer; text-align:left;
+    transition: background .12s ease, color .12s ease;
+  }
+  .lang-option:hover{ background:var(--panel-2); color:var(--paper); }
+  .lang-option.active{ color:var(--teal); }
+  .lang-option .code{ font-size:10px; opacity:0.6; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:120px 0 90px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--teal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:""; width:22px; height:1px; background:var(--teal);
+  }
+  h1{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(38px, 5.5vw, 64px);
+    line-height:1.08;
+    max-width:820px;
+    letter-spacing:-0.01em;
+  }
+  h1 em{ font-style:italic; color:var(--amber); font-weight:500;}
+  .hero-sub{
+    margin-top:24px; max-width:560px;
+    color:var(--muted); font-size:17px;
+  }
+  .hero-tags{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:32px;
+  }
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--paper);
+    border:1px solid var(--line);
+    padding:7px 12px; border-radius:var(--radius);
+  }
+  .hero-cta{
+    display:flex; gap:16px; margin-top:44px; flex-wrap:wrap;
+  }
+  .btn-primary{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    letter-spacing:0.06em; text-transform:uppercase;
+    background:var(--teal); color:var(--ink);
+    padding:14px 22px; border-radius:var(--radius);
+    border:1px solid var(--teal);
+    transition: transform .15s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-1px); background:#7bdccf;}
+  .btn-ghost{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--paper);
+    padding:14px 22px; border-radius:var(--radius);
+    border:1px solid var(--line);
+    transition: border-color .15s ease;
+  }
+  .btn-ghost:hover{ border-color: var(--paper);}
+
+  /* ---------- Section heading ---------- */
+  .section{ padding:96px 0; border-bottom:1px solid var(--line);}
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom:48px; flex-wrap:wrap; gap:20px;
+  }
+  .section-title{
+    font-family:'Fraunces', serif; font-weight:600; font-size:32px;
+  }
+  .section-note{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    color:var(--muted); max-width:340px; text-align:right;
+  }
+
+  /* ---------- Tabs ---------- */
+  .tabs{ display:flex; gap:8px; margin-bottom:40px; }
+  .tab-btn{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    letter-spacing:0.08em; text-transform:uppercase;
+    padding:12px 18px; border-radius:var(--radius);
+    border:1px solid var(--line); color:var(--muted);
+    cursor:pointer; background:transparent;
+    transition: all .18s ease;
+  }
+  .tab-btn.active{
+    color:var(--ink); background:var(--paper); border-color:var(--paper);
+  }
+  .tab-count{
+    font-size:10px; opacity:0.6; margin-left:6px;
+  }
+
+  /* ---------- Project grid ---------- */
+  .grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+  }
+  .panel{ display:none; }
+  .panel.active{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .card{
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition: border-color .2s ease, transform .2s ease;
+    position:relative;
+  }
+  .card:hover{ border-color:var(--teal); transform:translateY(-3px);}
+  .card-thumb{
+    height:150px;
+    display:flex; align-items:flex-end; justify-content:flex-start;
+    padding:12px;
+    position:relative;
+    background:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 10px),
+      linear-gradient(135deg, var(--panel-2), var(--panel));
+    border-bottom:1px dashed var(--line);
+  }
+  .card-thumb .meta-tag{
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--teal);
+    border:1px solid rgba(95,207,192,0.35);
+    background:rgba(95,207,192,0.08);
+    padding:4px 8px; border-radius:var(--radius);
+  }
+  .card-thumb .year-tag{
+    position:absolute; top:12px; right:12px;
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    color:var(--muted);
+  }
+  .card-body{ padding:18px 16px 20px;}
+  .card-title{
+    font-family:'Fraunces', serif; font-weight:600; font-size:18px;
+    margin-bottom:8px;
+  }
+  .card-desc{
+    font-size:13.5px; color:var(--muted); margin-bottom:14px;
+    min-height:54px;
+  }
+  .card-link{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--amber);
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .card-link::after{ content:"→"; transition:transform .15s ease;}
+  .card:hover .card-link::after{ transform:translateX(3px);}
+  .card-actions{
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .card-link.secondary{
+    color:var(--teal);
+  }
+  .card-thumb.has-image{
+    background-size:cover;
+    background-position:center;
+    border-bottom:1px solid var(--line);
+  }
+  .card-thumb.has-image::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(14,22,38,0.05) 40%, rgba(14,22,38,0.75) 100%);
+  }
+  .card-thumb.has-image .year-tag{ z-index:1; }
+  .card-thumb.has-image .meta-tag{
+    position:relative; z-index:1;
+    background:rgba(14,22,38,0.55);
+  }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    display:none;
+    position:fixed; inset:0; z-index:200;
+    background:rgba(6,10,18,0.92);
+    align-items:center; justify-content:center;
+    padding:40px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-inner{
+    max-width:1000px; width:100%;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  .lightbox-img-wrap{
+    width:100%; border:1px solid var(--line);
+    background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    aspect-ratio:16/9; overflow:hidden;
+    position:relative;
+  }
+  .lightbox-img-wrap img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .lightbox-controls{
+    display:flex; align-items:center; justify-content:space-between; width:100%;
+  }
+  .lightbox-btn{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--paper); border:1px solid var(--line);
+    padding:10px 16px; border-radius:var(--radius);
+    background:transparent; cursor:pointer;
+  }
+  .lightbox-btn:hover{ border-color:var(--teal); color:var(--teal); }
+  .lightbox-count{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted);
+  }
+  .lightbox-close{
+    position:absolute; top:24px; right:32px;
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--muted); cursor:pointer; letter-spacing:0.08em;
+  }
+  .lightbox-close:hover{ color:var(--paper); }
+
+  /* ---------- About / timeline ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 0.9fr 1.4fr; gap:64px;
+  }
+  .about-copy p{ color:var(--muted); margin-bottom:16px; font-size:15px; max-width:440px;}
+  .about-copy .name{ color:var(--paper); font-weight:600;}
+  .lang-list{ margin-top:28px; display:flex; flex-direction:column; gap:10px;}
+  .lang-row{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); max-width:280px;}
+  .lang-row b{ color:var(--paper); font-weight:500;}
+
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  .t-item{ position:relative; padding-bottom:34px;}
+  .t-item:last-child{ padding-bottom:0;}
+  .t-item::before{
+    content:""; position:absolute; left:-28px; top:4px; width:9px; height:9px;
+    border-radius:50%; background:var(--ink); border:2px solid var(--teal);
+  }
+  .t-role{ font-family:'Fraunces', serif; font-weight:600; font-size:17px;}
+  .t-meta{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+    color:var(--muted); margin-top:5px; letter-spacing:0.02em;
+  }
+
+  /* ---------- Contact / footer ---------- */
+  .contact{
+    padding:96px 0 60px;
+    text-align:left;
+  }
+  .contact h2{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(30px,4.5vw,46px); max-width:640px;
+  }
+  .contact-row{
+    display:flex; gap:16px; margin-top:36px; flex-wrap:wrap;
+  }
+  footer{
+    padding:28px 0 40px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+  }
+  footer, footer a{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted);
+  }
+  footer a:hover{ color:var(--paper); }
+  .foot-links{ display:flex; gap:20px;}
+
+  @media (max-width:860px){
+    .nav-links{ display:none; }
+    .grid, .panel.active{ grid-template-columns:1fr 1fr;}
+    .about-grid{ grid-template-columns:1fr; gap:40px;}
+  }
+  @media (max-width:560px){
+    .grid, .panel.active{ grid-template-columns:1fr;}
+    .wrap{ padding:0 20px;}
+    .section-note{ text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">MARIO <span>ACEITUNO</span></div>
+      <div class="nav-links">
+        <a href="#work" data-i18n="nav.work">My Work</a>
+        <a href="#about" data-i18n="nav.about">About Me</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="btn-cv" data-i18n="nav.cv">Download CV</a>
+        <div class="lang-switcher" id="lang-switcher">
+          <button class="lang-btn" id="lang-btn" type="button">
+            <span id="lang-current">EN</span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="lang-menu" id="lang-menu">
+            <button class="lang-option active" data-lang="en">English <span class="code">EN</span></button>
+            <button class="lang-option" data-lang="es">Español <span class="code">ES</span></button>
+            <button class="lang-option" data-lang="de">Deutsch <span class="code">DE</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow" data-i18n="hero.eyebrow">Madrid, Spain · Open to relocation in Europe</div>
+    <h1 data-i18n-html="hero.title">Designing <em>systems</em>, <em>characters</em> and <em>worlds</em> players want to explore.</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Video game designer with a background in concept art and UX/UI teaching, specialized in character, environment, prop, UX/UI and game design in the video game industry.</p>
+    <div class="hero-tags">
+      <span class="tag" data-i18n="hero.tag1">Game Design</span>
+      <span class="tag" data-i18n="hero.tag2">Concept Art</span>
+      <span class="tag">UX/UI</span>
+      <span class="tag">Unity · Unreal · Godot</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary" data-i18n="hero.cta1">View Game Design Work</a>
+      <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="section-title" data-i18n="work.title">Selected Work</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="design"><span data-i18n="work.tab1">Game Design</span> <span class="tab-count">(4)</span></button>
+      <button class="tab-btn" data-tab="art"><span data-i18n="work.tab2">Art &amp; Illustration</span> <span class="tab-count">(6)</span></button>
+    </div>
+
+    <!-- GAME DESIGN PANEL -->
+    <div class="panel active" id="panel-design">
+      <div class="card">
+        <div class="card-thumb">
+          <span class="year-tag">2023</span>
+          <span class="meta-tag">RPG Maker</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Creature-Collector</div>
+          <div class="card-desc" data-i18n="proj.creature.desc">Turn-based combat RPG with open-world exploration where the player must capture and train a variety of creatures to complete their adventure. Unreleased due to IP restrictions.</div>
+          <div class="card-actions">
+            <a href="#" class="card-link" data-i18n="proj.viewDetails">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-gallery="jumping-knight">
+        <div class="card-thumb has-image" style="background-image:url('img/jumping-knight-1.jpg')">
+          <span class="year-tag">2020</span>
+          <span class="meta-tag">Unity · C#</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">My Jumping Knight</div>
+          <div class="card-desc" data-i18n="proj.knight.desc">Fast-paced action-platformer where the player controls a knight who must dodge various traps and use power-ups to reach the goal as fast as possible.</div>
+          <div class="card-actions">
+            <a href="#" class="card-link gallery-trigger" data-gallery="jumping-knight" data-i18n="proj.viewDetails">View Details</a>
+            <a href="https://angrypineapplegames.itch.io/my-jumping-knight" class="card-link secondary" target="_blank" rel="noopener" data-i18n="proj.playItch">Play on itch.io</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-gallery="depths-of-magic">
+        <div class="card-thumb has-image" style="background-image:url('img/depths-of-magic-cover.jpg')">
+          <span class="year-tag">2020</span>
+          <span class="meta-tag">Phaser</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Depths of Magic</div>
+          <div class="card-desc" data-i18n="proj.magic.desc">Roguelike turn-based combat game where the player controls a magician who casts spells to defeat monsters by slicing ropes in a specific pattern.</div>
+          <div class="card-actions">
+            <a href="#" class="card-link gallery-trigger" data-gallery="depths-of-magic" data-i18n="proj.viewDetails">View Details</a>
+            <a href="https://angrypineapplegames.itch.io/depths-of-magic" class="card-link secondary" target="_blank" rel="noopener" data-i18n="proj.playItch">Play on itch.io</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-gallery="dark-shadows">
+        <div class="card-thumb has-image" style="background-image:url('img/dark-shadows-2.jpg')">
+          <span class="year-tag">2020</span>
+          <span class="meta-tag">Android Studio</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Dark Shadows</div>
+          <div class="card-desc" data-i18n="proj.dark.desc">Fast-paced action mobile game where the player controls a spaceship and must choose the right projectile to defeat incoming space creatures.</div>
+          <div class="card-actions">
+            <a href="#" class="card-link gallery-trigger" data-gallery="dark-shadows" data-i18n="proj.viewDetails">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ART PANEL -->
+    <div class="panel" id="panel-art">
+      <div class="card">
+        <div class="card-thumb"><span class="year-tag">2024</span><span class="meta-tag">Photoshop</span></div>
+        <div class="card-body">
+          <div class="card-title">Agents — Character Designs</div>
+          <div class="card-desc" data-i18n="art.agents.desc">Original character design studies based on Valorant's agent roster.</div>
+          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><span class="year-tag">2023</span><span class="meta-tag">Photoshop, Animate, Godot</span></div>
+        <div class="card-body">
+          <div class="card-title">Cathedral — Environment Concept</div>
+          <div class="card-desc" data-i18n="art.cathedral.desc">Gothic interior design &amp; thumbnails for a personal project inspired by Blasphemous.</div>
+          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><span class="year-tag">—</span><span class="meta-tag">Maya</span></div>
+        <div class="card-body">
+          <div class="card-title">Bedroom — 3D Environment</div>
+          <div class="card-desc" data-i18n="art.bedroom.desc">3D modeling &amp; lighting practice piece built in Maya.</div>
+          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><span class="year-tag">—</span><span class="meta-tag">Unreal Engine</span></div>
+        <div class="card-body">
+          <div class="card-title">Fireflies — 3D Environment</div>
+          <div class="card-desc" data-i18n="art.fireflies.desc">Environment lighting study built in Unreal Engine, composited with Photoshop.</div>
+          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><span class="year-tag">—</span><span class="meta-tag">Substance Painter</span></div>
+        <div class="card-body">
+          <div class="card-title">Rifle — Texturing Study</div>
+          <div class="card-desc" data-i18n="art.rifle.desc">Hard-surface texturing practice on a third-party base mesh.</div>
+          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><span class="year-tag">2018–Present</span><span class="meta-tag">Photoshop</span></div>
+        <div class="card-body">
+          <div class="card-title">Illustrations &amp; Concepts</div>
+          <div class="card-desc" data-i18n="art.illustrations.desc">A variety of illustrations in different art styles, including portraits, character, environment and prop concepts, and 3D assets.</div>
+          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-title" data-i18n="about.title">About Me</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p><span class="name" data-i18n="about.hi">Hi, I'm Mario</span> <span data-i18n="about.p1">— a video game designer with a background in concept art and UX/UI teaching. Specialized in character, environment, prop, UX/UI and game design in the video game industry.</span></p>
+        <p data-i18n="about.p2">Experience working in graphic design, 3D modeling, texturing and animation, across various programming environments and video game engines.</p>
+        <div class="lang-list">
+          <div class="lang-row"><span data-i18n="about.langES">Spanish</span><b data-i18n="about.native">Native</b></div>
+          <div class="lang-row"><span data-i18n="about.langEN">English</span><b data-i18n="about.advanced">C1 — Advanced</b></div>
+          <div class="lang-row"><span data-i18n="about.langDE">German</span><b data-i18n="about.intermediate">B1 — Intermediate</b></div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-role" data-i18n="tl.professor">User Design &amp; UX Professor</div>
+          <div class="t-meta">Universidad Alfonso X el Sabio, Madrid — Oct 2023 · <span data-i18n="tl.present">Present</span></div>
+        </div>
+        <div class="t-item">
+          <div class="t-role" data-i18n="tl.master">Master's Degree in Concept Art</div>
+          <div class="t-meta">Voxel School, Madrid — Oct 2021 · Sep 2022</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role" data-i18n="tl.intern">Software Engineering Intern</div>
+          <div class="t-meta">Abaco Developments, Madrid — Feb 2021 · Jun 2021</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role" data-i18n="tl.bachelor">Bachelor's Degree, Video Game Design &amp; Development</div>
+          <div class="t-meta">Universidad Rey Juan Carlos, Móstoles — Sep 2016 · Jul 2022</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role" data-i18n="tl.highschool">High School Diploma — Distinction in Psychology</div>
+          <div class="t-meta">IES Humanes, Humanes — Sep 2015 · Jun 2016</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 data-i18n="contact.title">Got a project in mind? I'd love to hear about it.</h2>
+    <div class="contact-row">
+      <a href="mailto:marioaceitunobusiness@gmail.com" class="btn-primary">marioaceitunobusiness@gmail.com</a>
+      <a href="https://linkedin.com/in/marioaceitunocordero" class="btn-ghost" target="_blank">LinkedIn ↗</a>
+      <a href="#" class="btn-ghost" target="_blank">ArtStation: Mario Aceituno ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
+    <span data-i18n="footer.copyright">© 2026 Mario Aceituno Cordero — Template built for portfolio restructuring</span>
+    <div class="foot-links">
+      <a href="#work" data-i18n="footer.work">Work</a>
+      <a href="#about" data-i18n="footer.about">About</a>
+      <a href="#contact" data-i18n="footer.contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightbox-close">CLOSE ✕</span>
+  <div class="lightbox-inner">
+    <div class="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    <div class="lightbox-controls">
+      <button class="lightbox-btn" id="lightbox-prev">← Prev</button>
+      <span class="lightbox-count" id="lightbox-count"></span>
+      <button class="lightbox-btn" id="lightbox-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = { design: document.getElementById('panel-design'), art: document.getElementById('panel-art') };
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(panels).forEach(p => p.classList.remove('active'));
+      panels[btn.dataset.tab].classList.add('active');
+    });
+  });
+
+  // ---- Project galleries ----
+  // Add an entry here per project as more real screenshots come in.
+  const galleries = {
+    'dark-shadows': [
+      { src: 'img/dark-shadows-2.jpg', caption: 'Main menu' },
+      { src: 'img/dark-shadows-3.jpg', caption: 'Ship selection screen' },
+      { src: 'img/dark-shadows-1.jpg', caption: 'Settings screen' },
+      { src: 'img/dark-shadows-4.jpg', caption: 'Pre-match loadout' },
+    ],
+    'depths-of-magic': [
+      { src: 'img/depths-of-magic-cover.jpg', caption: 'Cover art' },
+      { src: 'img/depths-of-magic-character.jpg', caption: 'Playable character — design progression' },
+      { src: 'img/depths-of-magic-enemies.jpg', caption: 'Enemy concept sheet' },
+    ],
+    'jumping-knight': [
+      { src: 'img/jumping-knight-1.jpg', caption: 'Title screen' },
+      { src: 'img/jumping-knight-2.jpg', caption: 'Level selection' },
+      { src: 'img/jumping-knight-3.jpg', caption: 'Level 1 — gameplay' },
+      { src: 'img/jumping-knight-4.jpg', caption: 'Level 2 — gameplay' },
+      { src: 'img/jumping-knight-5.jpg', caption: 'Level 3 — gameplay' },
+      { src: 'img/jumping-knight-6.jpg', caption: 'Victory screen' },
+    ],
+  };
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCount = document.getElementById('lightbox-count');
+  let currentGallery = [];
+  let currentIndex = 0;
+
+  function openLightbox(key){
+    currentGallery = galleries[key];
+    if(!currentGallery) return;
+    currentIndex = 0;
+    updateLightbox();
+    lightbox.classList.add('open');
+  }
+  function updateLightbox(){
+    const item = currentGallery[currentIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.caption;
+    lightboxCount.textContent = `${currentIndex+1} / ${currentGallery.length} — ${item.caption}`;
+  }
+  document.querySelectorAll('.gallery-trigger').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(el.dataset.gallery);
+    });
+  });
+  document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('open'); });
+  document.getElementById('lightbox-prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+    updateLightbox();
+  });
+  document.getElementById('lightbox-next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % currentGallery.length;
+    updateLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') lightbox.classList.remove('open');
+    if(e.key === 'ArrowLeft') document.getElementById('lightbox-prev').click();
+    if(e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
+  });
+
+  // ---- Language switcher / i18n ----
+  const translations = {
+    en: {
+      'nav.cv': 'Download CV', 'nav.work': 'My Work', 'nav.about': 'About Me', 'nav.contact': 'Contact',
+      'hero.eyebrow': 'Madrid, Spain · Open to relocation in Europe',
+      'hero.title': 'Designing <em>systems</em>, <em>characters</em> and <em>worlds</em> players want to explore.',
+      'hero.sub': 'Video game designer with a background in concept art and UX/UI teaching, specialized in character, environment, prop, UX/UI and game design in the video game industry.',
+      'hero.tag1': 'Game Design', 'hero.tag2': 'Concept Art',
+      'hero.cta1': 'View Game Design Work', 'hero.cta2': 'Get in Touch',
+      'work.title': 'Selected Work', 'work.tab1': 'Game Design', 'work.tab2': 'Art & Illustration',
+      'proj.viewDetails': 'View Details', 'proj.playItch': 'Play on itch.io',
+      'proj.creature.desc': 'Turn-based combat RPG with open-world exploration where the player must capture and train a variety of creatures to complete their adventure. Unreleased due to IP restrictions.',
+      'proj.knight.desc': 'Fast-paced action-platformer where the player controls a knight who must dodge various traps and use power-ups to reach the goal as fast as possible.',
+      'proj.magic.desc': 'Roguelike turn-based combat game where the player controls a magician who casts spells to defeat monsters by slicing ropes in a specific pattern.',
+      'proj.dark.desc': 'Fast-paced action mobile game where the player controls a spaceship and must choose the right projectile to defeat incoming space creatures.',
+      'art.viewGallery': 'View gallery',
+      'art.agents.desc': "Original character design studies based on Valorant's agent roster.",
+      'art.cathedral.desc': 'Gothic interior design & thumbnails for a personal project inspired by Blasphemous.',
+      'art.bedroom.desc': '3D modeling & lighting practice piece built in Maya.',
+      'art.fireflies.desc': 'Environment lighting study built in Unreal Engine, composited with Photoshop.',
+      'art.rifle.desc': 'Hard-surface texturing practice on a third-party base mesh.',
+      'art.illustrations.desc': 'A variety of illustrations in different art styles, including portraits, character, environment and prop concepts, and 3D assets.',
+      'about.title': 'About Me', 'about.hi': "Hi, I'm Mario",
+      'about.p1': '— a video game designer with a background in concept art and UX/UI teaching. Specialized in character, environment, prop, UX/UI and game design in the video game industry.',
+      'about.p2': 'Experience working in graphic design, 3D modeling, texturing and animation, across various programming environments and video game engines.',
+      'about.langES': 'Spanish', 'about.langEN': 'English', 'about.langDE': 'German',
+      'about.native': 'Native', 'about.advanced': 'C1 — Advanced', 'about.intermediate': 'B1 — Intermediate',
+      'tl.professor': 'User Design & UX Professor', 'tl.present': 'Present',
+      'tl.master': "Master's Degree in Concept Art", 'tl.intern': 'Software Engineering Intern',
+      'tl.bachelor': "Bachelor's Degree, Video Game Design & Development",
+      'tl.highschool': 'High School Diploma — Distinction in Psychology',
+      'contact.title': "Got a project in mind? I'd love to hear about it.",
+      'footer.copyright': '© 2026 Mario Aceituno Cordero — Template built for portfolio restructuring',
+      'footer.work': 'Work', 'footer.about': 'About', 'footer.contact': 'Contact',
+    },
+    es: {
+      'nav.cv': 'Descargar CV', 'nav.work': 'Mi Trabajo', 'nav.about': 'Sobre Mí', 'nav.contact': 'Contacto',
+      'hero.eyebrow': 'Madrid, España · Disponible para reubicación en Europa',
+      'hero.title': 'Diseñando <em>sistemas</em>, <em>personajes</em> y <em>mundos</em> que los jugadores quieren explorar.',
+      'hero.sub': 'Diseñador de videojuegos con formación en arte conceptual y docencia UX/UI, especializado en personajes, entornos, props, UX/UI y diseño de juego en la industria del videojuego.',
+      'hero.tag1': 'Game Design', 'hero.tag2': 'Concept Art',
+      'hero.cta1': 'Ver Trabajo de Diseño', 'hero.cta2': 'Contactar',
+      'work.title': 'Mis proyectos', 'work.tab1': 'Game Design', 'work.tab2': 'Arte e Ilustración',
+      'proj.viewDetails': 'Ver Detalles', 'proj.playItch': 'Jugar en itch.io',
+      'proj.creature.desc': 'RPG de combate por turnos con exploración de mundo abierto, donde el jugador debe capturar y entrenar diversas criaturas para completar su aventura. No publicado por restricciones de propiedad intelectual.',
+      'proj.knight.desc': 'Juego de acción y plataformas trepidante donde el jugador controla a un caballero que debe esquivar trampas y usar power-ups para llegar a la meta lo más rápido posible.',
+      'proj.magic.desc': 'Juego de combate por turnos tipo roguelike donde el jugador controla a un mago que lanza hechizos para derrotar monstruos cortando cuerdas siguiendo un patrón específico.',
+      'proj.dark.desc': 'Juego de acción móvil trepidante donde el jugador controla una nave espacial y debe elegir el proyectil adecuado para derrotar a las criaturas espaciales.',
+      'art.viewGallery': 'Ver Galería',
+      'art.agents.desc': 'Estudios de diseño de personajes originales basados en el elenco de agentes de Valorant.',
+      'art.cathedral.desc': 'Diseño de interiores góticos y thumbnails para un proyecto personal inspirado en Blasphemous.',
+      'art.bedroom.desc': 'Pieza de práctica de modelado 3D e iluminación realizada en Maya.',
+      'art.fireflies.desc': 'Estudio de iluminación de entornos realizado en Unreal Engine, compuesto con Photoshop.',
+      'art.rifle.desc': 'Práctica de texturizado hard-surface sobre una malla base de terceros.',
+      'art.illustrations.desc': 'Una variedad de ilustraciones en distintos estilos artísticos, incluyendo retratos, conceptos de personajes, entornos, props y assets 3D.',
+      'about.title': 'Sobre Mí', 'about.hi': 'Hola, soy Mario',
+      'about.p1': '— diseñador de videojuegos con formación en arte conceptual y docencia UX/UI. Especializado en personajes, entornos, props, UX/UI y diseño de juego en la industria del videojuego.',
+      'about.p2': 'Experiencia trabajando en diseño gráfico, modelado 3D, texturizado y animación, en diversos entornos de programación y motores de videojuego.',
+      'about.langES': 'Español', 'about.langEN': 'Inglés', 'about.langDE': 'Alemán',
+      'about.native': 'Nativo', 'about.advanced': 'C1 — Avanzado', 'about.intermediate': 'B1 — Intermedio',
+      'tl.professor': 'Profesor de Diseño y Experiencia de Usuario', 'tl.present': 'Actualidad',
+      'tl.master': 'Máster en Concept Art', 'tl.intern': 'Becario de Ingeniería de Software',
+      'tl.bachelor': 'Grado en Diseño y Desarrollo de Videojuegos',
+      'tl.highschool': 'Bachillerato — Mención de honor en Psicología',
+      'contact.title': '¿Tienes un proyecto en mente? Me encantaría saber más.',
+      'footer.copyright': '© 2026 Mario Aceituno Cordero — Plantilla creada para la reestructuración del portfolio',
+      'footer.work': 'Trabajo', 'footer.about': 'Sobre mí', 'footer.contact': 'Contacto',
+    },
+    de: {
+      'nav.cv': 'Lebenslauf herunterladen', 'nav.work': 'Meine Arbeit', 'nav.about': 'Über Mich', 'nav.contact': 'Kontakt',
+      'hero.eyebrow': 'Madrid, Spanien · Offen für Umzug innerhalb Europas',
+      'hero.title': 'Gestaltung von <em>Systemen</em>, <em>Charakteren</em> und <em>Welten</em>, die Spieler erkunden möchten.',
+      'hero.sub': 'Videospieldesigner mit Hintergrund in Concept Art und UX/UI-Lehre, spezialisiert auf Charakter-, Umgebungs- und Prop-Design, UX/UI sowie Game Design in der Videospielbranche.',
+      'hero.tag1': 'Game Design', 'hero.tag2': 'Concept Art',
+      'hero.cta1': 'Game-Design-Arbeiten ansehen', 'hero.cta2': 'Kontakt aufnehmen',
+      'work.title': 'Ausgewählte Arbeiten', 'work.tab1': 'Game Design', 'work.tab2': 'Kunst & Illustration',
+      'proj.viewDetails': 'Details ansehen', 'proj.playItch': 'Auf itch.io spielen',
+      'proj.creature.desc': 'Rundenbasiertes Kampf-RPG mit Open-World-Erkundung, bei dem der Spieler verschiedene Kreaturen fangen und trainieren muss, um sein Abenteuer zu vollenden. Aufgrund von Urheberrechtsbeschränkungen nicht veröffentlicht.',
+      'proj.knight.desc': 'Actionreicher Plattformer, bei dem der Spieler einen Ritter steuert, der verschiedenen Fallen ausweichen und Power-ups nutzen muss, um das Ziel so schnell wie möglich zu erreichen.',
+      'proj.magic.desc': 'Rundenbasiertes Roguelike-Kampfspiel, bei dem der Spieler einen Magier steuert, der Monster besiegt, indem er Seile in einem bestimmten Muster durchtrennt.',
+      'proj.dark.desc': 'Actionreiches Mobile-Spiel, bei dem der Spieler ein Raumschiff steuert und das richtige Geschoss wählen muss, um heranrückende Weltraumkreaturen zu besiegen.',
+      'art.viewGallery': 'Galerie ansehen',
+      'art.agents.desc': 'Original-Charakterdesign-Studien basierend auf dem Agenten-Roster von Valorant.',
+      'art.cathedral.desc': 'Gotisches Innenraumdesign & Thumbnails für ein persönliches, von Blasphemous inspiriertes Projekt.',
+      'art.bedroom.desc': '3D-Modellierungs- und Beleuchtungsübung, erstellt in Maya.',
+      'art.fireflies.desc': 'Beleuchtungsstudie einer Umgebung, erstellt in Unreal Engine, zusammengesetzt mit Photoshop.',
+      'art.rifle.desc': 'Hard-Surface-Texturierungsübung auf einem Basis-Mesh eines Drittanbieters.',
+      'art.illustrations.desc': 'Verschiedene Illustrationen in unterschiedlichen Stilen, darunter Porträts, Charakter-, Umgebungs- und Prop-Konzepte sowie 3D-Assets.',
+      'about.title': 'Über Mich', 'about.hi': 'Hallo, ich bin Mario',
+      'about.p1': '— ein Videospieldesigner mit Hintergrund in Concept Art und UX/UI-Lehre. Spezialisiert auf Charakter-, Umgebungs- und Prop-Design, UX/UI sowie Game Design in der Videospielbranche.',
+      'about.p2': 'Erfahrung in Grafikdesign, 3D-Modellierung, Texturierung und Animation in verschiedenen Programmierumgebungen und Spiel-Engines.',
+      'about.langES': 'Spanisch', 'about.langEN': 'Englisch', 'about.langDE': 'Deutsch',
+      'about.native': 'Muttersprache', 'about.advanced': 'C1 — Fortgeschritten', 'about.intermediate': 'B1 — Mittelstufe',
+      'tl.professor': 'Professor für User Design & UX', 'tl.present': 'Heute',
+      'tl.master': 'Master in Concept Art', 'tl.intern': 'Praktikant Softwareentwicklung',
+      'tl.bachelor': 'Bachelor in Videospieldesign & -entwicklung',
+      'tl.highschool': 'Abitur — Schwerpunkt Psychologie',
+      'contact.title': 'Haben Sie ein Projekt im Kopf? Ich freue mich, davon zu hören.',
+      'footer.copyright': '© 2026 Mario Aceituno Cordero — Vorlage für die Portfolio-Neugestaltung',
+      'footer.work': 'Arbeit', 'footer.about': 'Über', 'footer.contact': 'Kontakt',
+    },
+  };
+
+  function applyLanguage(lang){
+    const dict = translations[lang];
+    if(!dict) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if(dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.getElementById('lang-current').textContent = lang.toUpperCase();
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.classList.toggle('active', opt.dataset.lang === lang);
+    });
+    document.documentElement.setAttribute('lang', lang);
+  }
+
+  const langSwitcher = document.getElementById('lang-switcher');
+  const langBtn = document.getElementById('lang-btn');
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langSwitcher.classList.toggle('open');
+  });
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      applyLanguage(opt.dataset.lang);
+      langSwitcher.classList.remove('open');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if(!langSwitcher.contains(e.target)) langSwitcher.classList.remove('open');
+  });
+</script>
+
+</body>
+</html>
