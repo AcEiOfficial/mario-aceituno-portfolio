@@ -149,19 +149,20 @@
     margin-top:24px; max-width:560px;
     color:var(--muted); font-size:17px;
   }
-  .hero-tags{
-    display:flex; gap:10px; flex-wrap:wrap; margin-top:32px;
+  .hero-skills{
+    margin-top:36px; max-width:640px;
+    display:flex; flex-direction:column; gap:10px;
   }
-  .tag{
+  .skill-row{
+    display:flex; flex-direction:column; row-gap:4px;
+    font-size:13.5px; line-height:1.5;
+  }
+  .skill-label{
     font-family:'JetBrains Mono', monospace; font-size:11px;
     letter-spacing:0.06em; text-transform:uppercase;
-    color:var(--paper);
-    border:1px solid var(--line);
-    padding:7px 12px; border-radius:var(--radius);
+    color:var(--teal);
   }
-  .hero-cta{
-    display:flex; gap:16px; margin-top:44px; flex-wrap:wrap;
-  }
+  .skill-value{ color:var(--muted); }
   .btn-primary{
     font-family:'JetBrains Mono', monospace; font-size:12.5px;
     letter-spacing:0.06em; text-transform:uppercase;
@@ -407,7 +408,7 @@
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
       <div class="nav-right">
-        <a href="#" class="btn-cv" data-i18n="nav.cv">Download CV</a>
+        <a href="Mario_Aceituno_Cordero_CV.pdf" download="Mario_Aceituno_Cordero_CV.pdf" class="btn-cv" data-i18n="nav.cv">Download CV</a>
         <div class="lang-switcher" id="lang-switcher">
           <button class="lang-btn" id="lang-btn" type="button">
             <span id="lang-current">EN</span>
@@ -428,16 +429,13 @@
   <div class="wrap">
     <div class="eyebrow" data-i18n="hero.eyebrow">Madrid, Spain · Open to relocation in Europe</div>
     <h1 data-i18n-html="hero.title">Designing <em>systems</em>, <em>characters</em> and <em>worlds</em> players want to explore.</h1>
-    <p class="hero-sub" data-i18n="hero.sub">Video game designer with a background in concept art and UX/UI teaching, specialized in character, environment, prop, UX/UI and game design in the video game industry.</p>
-    <div class="hero-tags">
-      <span class="tag" data-i18n="hero.tag1">Game Design</span>
-      <span class="tag" data-i18n="hero.tag2">Concept Art</span>
-      <span class="tag">UX/UI</span>
-      <span class="tag">Unity · Unreal · Godot</span>
-    </div>
-    <div class="hero-cta">
-      <a href="#work" class="btn-primary" data-i18n="hero.cta1">View Game Design Work</a>
-      <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Get in Touch</a>
+    <p class="hero-sub" data-i18n="hero.sub">Video game designer with a background in concept art and UX/UI teaching. Specialized in character, environment, prop, UX/UI and game design in the video game industry.</p>
+    <div class="hero-skills">
+      <div class="skill-row"><span class="skill-label" data-i18n="hero.skill1label">Video Game Engines</span><span class="skill-value">Unity, Unreal Engine, Godot, GameMaker Studio, RPG Maker</span></div>
+      <div class="skill-row"><span class="skill-label" data-i18n="hero.skill2label">Art & 3D Tools</span><span class="skill-value">Photoshop, Illustrator, Animate, ZBrush, Maya, Blender, 3ds Max, Substance Painter, SketchUp</span></div>
+      <div class="skill-row"><span class="skill-label" data-i18n="hero.skill3label">UX/UI Tools</span><span class="skill-value">Figma, Framer</span></div>
+      <div class="skill-row"><span class="skill-label" data-i18n="hero.skill4label">Dev Environments</span><span class="skill-value">Visual Studio, Android Studio, PyCharm, Phaser, Eclipse, Processing, MATLAB, SQL Developer, MongoDB</span></div>
+      <div class="skill-row"><span class="skill-label" data-i18n="hero.skill5label">Programming Languages</span><span class="skill-value">C#, C++, Python, Java, JavaScript, HTML, SQL, R, Lua</span></div>
     </div>
   </div>
 </section>
@@ -451,36 +449,21 @@
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="design"><span data-i18n="work.tab1">Game Design</span> <span class="tab-count">(4)</span></button>
-      <button class="tab-btn" data-tab="art"><span data-i18n="work.tab2">Art &amp; Illustration</span> <span class="tab-count">(6)</span></button>
+      <button class="tab-btn" data-tab="art"><span data-i18n="work.tab2">Art &amp; Illustration</span> <span class="tab-count">(7)</span></button>
     </div>
 
     <!-- GAME DESIGN PANEL -->
     <div class="panel active" id="panel-design">
-      <div class="card">
-        <div class="card-thumb">
-          <span class="year-tag">2023</span>
-          <span class="meta-tag">RPG Maker</span>
-        </div>
-        <div class="card-body">
-          <div class="card-title">Creature-Collector</div>
-          <div class="card-desc" data-i18n="proj.creature.desc">Turn-based combat RPG with open-world exploration where the player must capture and train a variety of creatures to complete their adventure. Unreleased due to IP restrictions.</div>
-          <div class="card-actions">
-            <a href="#" class="card-link" data-i18n="proj.viewDetails">View Details</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-gallery="jumping-knight">
-        <div class="card-thumb has-image" style="background-image:url('img/jumping-knight-1.jpg')">
+      <div class="card" data-gallery="dark-shadows">
+        <div class="card-thumb has-image" style="background-image:url('img/dark-shadows-2.jpg')">
           <span class="year-tag">2020</span>
-          <span class="meta-tag">Unity · C#</span>
+          <span class="meta-tag">Android Studio</span>
         </div>
         <div class="card-body">
-          <div class="card-title">My Jumping Knight</div>
-          <div class="card-desc" data-i18n="proj.knight.desc">Fast-paced action-platformer where the player controls a knight who must dodge various traps and use power-ups to reach the goal as fast as possible.</div>
+          <div class="card-title">Dark Shadows</div>
+          <div class="card-desc" data-i18n="proj.dark.desc">Fast-paced action mobile game where the player controls a spaceship and must choose the right projectile to defeat incoming space creatures.</div>
           <div class="card-actions">
-            <a href="#" class="card-link gallery-trigger" data-gallery="jumping-knight" data-i18n="proj.viewDetails">View Details</a>
-            <a href="https://angrypineapplegames.itch.io/my-jumping-knight" class="card-link secondary" target="_blank" rel="noopener" data-i18n="proj.playItch">Play on itch.io</a>
+            <a href="#" class="card-link gallery-trigger" data-gallery="dark-shadows" data-i18n="proj.viewDetails">View Details</a>
           </div>
         </div>
       </div>
@@ -500,69 +483,110 @@
         </div>
       </div>
 
-      <div class="card" data-gallery="dark-shadows">
-        <div class="card-thumb has-image" style="background-image:url('img/dark-shadows-2.jpg')">
+      <div class="card" data-gallery="jumping-knight">
+        <div class="card-thumb has-image" style="background-image:url('img/jumping-knight-1.jpg')">
           <span class="year-tag">2020</span>
-          <span class="meta-tag">Android Studio</span>
+          <span class="meta-tag">Unity · C#</span>
         </div>
         <div class="card-body">
-          <div class="card-title">Dark Shadows</div>
-          <div class="card-desc" data-i18n="proj.dark.desc">Fast-paced action mobile game where the player controls a spaceship and must choose the right projectile to defeat incoming space creatures.</div>
+          <div class="card-title">My Jumping Knight</div>
+          <div class="card-desc" data-i18n="proj.knight.desc">Fast-paced action-platformer where the player controls a knight who must dodge various traps and use power-ups to reach the goal as fast as possible.</div>
           <div class="card-actions">
-            <a href="#" class="card-link gallery-trigger" data-gallery="dark-shadows" data-i18n="proj.viewDetails">View Details</a>
+            <a href="#" class="card-link gallery-trigger" data-gallery="jumping-knight" data-i18n="proj.viewDetails">View Details</a>
+            <a href="https://angrypineapplegames.itch.io/my-jumping-knight" class="card-link secondary" target="_blank" rel="noopener" data-i18n="proj.playItch">Play on itch.io</a>
           </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb">
+          <span class="year-tag">2023</span>
+          <span class="meta-tag">RPG Maker</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Creature-Collector</div>
+          <div class="card-desc" data-i18n="proj.creature.desc">Turn-based combat RPG with open-world exploration where the player must capture and train a variety of creatures to complete their adventure. Unreleased due to IP restrictions.</div>
         </div>
       </div>
     </div>
 
     <!-- ART PANEL -->
     <div class="panel" id="panel-art">
-      <div class="card">
-        <div class="card-thumb"><span class="year-tag">2024</span><span class="meta-tag">Photoshop</span></div>
+      <div class="card" data-gallery="illustrations">
+        <div class="card-thumb has-image" style="background-image:url('img/illustrations-1.jpg')">
+          <span class="year-tag">2018–Present</span>
+          <span class="meta-tag">Photoshop</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Illustrations</div>
+          <div class="card-desc" data-i18n="art.illustrations.desc">A variety of illustrations in different art styles, including portraits, character, environment and prop concepts, and 3D assets.</div>
+          <a href="#" class="card-link gallery-trigger" data-gallery="illustrations" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card" data-gallery="portraits">
+        <div class="card-thumb has-image" style="background-image:url('img/portraits-1.jpg')">
+          <span class="year-tag">—</span>
+          <span class="meta-tag">Photoshop</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Portraits</div>
+          <div class="card-desc" data-i18n="art.portraits.desc">Digital portrait studies exploring color, lighting and mood through monochromatic palettes.</div>
+          <a href="#" class="card-link gallery-trigger" data-gallery="portraits" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card" data-gallery="agents">
+        <div class="card-thumb has-image" style="background-image:url('img/agents-1.jpg')">
+          <span class="year-tag">2024</span>
+          <span class="meta-tag">Photoshop</span>
+        </div>
         <div class="card-body">
           <div class="card-title">Agents — Character Designs</div>
           <div class="card-desc" data-i18n="art.agents.desc">Original character design studies based on Valorant's agent roster.</div>
-          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+          <a href="#" class="card-link gallery-trigger" data-gallery="agents" data-i18n="art.viewGallery">View gallery</a>
         </div>
       </div>
-      <div class="card">
-        <div class="card-thumb"><span class="year-tag">2023</span><span class="meta-tag">Photoshop, Animate, Godot</span></div>
-        <div class="card-body">
-          <div class="card-title">Cathedral — Environment Concept</div>
-          <div class="card-desc" data-i18n="art.cathedral.desc">Gothic interior design &amp; thumbnails for a personal project inspired by Blasphemous.</div>
-          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+      <div class="card" data-gallery="bedroom">
+        <div class="card-thumb has-image" style="background-image:url('img/bedroom-6.jpg')">
+          <span class="year-tag">—</span>
+          <span class="meta-tag">Maya</span>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-thumb"><span class="year-tag">—</span><span class="meta-tag">Maya</span></div>
         <div class="card-body">
           <div class="card-title">Bedroom — 3D Environment</div>
           <div class="card-desc" data-i18n="art.bedroom.desc">3D modeling &amp; lighting practice piece built in Maya.</div>
-          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+          <a href="#" class="card-link gallery-trigger" data-gallery="bedroom" data-i18n="art.viewGallery">View gallery</a>
         </div>
       </div>
-      <div class="card">
-        <div class="card-thumb"><span class="year-tag">—</span><span class="meta-tag">Unreal Engine</span></div>
+      <div class="card" data-gallery="fireflies">
+        <div class="card-thumb has-image" style="background-image:url('img/fireflies-1.jpg')">
+          <span class="year-tag">—</span>
+          <span class="meta-tag">Unreal Engine</span>
+        </div>
         <div class="card-body">
           <div class="card-title">Fireflies — 3D Environment</div>
           <div class="card-desc" data-i18n="art.fireflies.desc">Environment lighting study built in Unreal Engine, composited with Photoshop.</div>
-          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+          <a href="#" class="card-link gallery-trigger" data-gallery="fireflies" data-i18n="art.viewGallery">View gallery</a>
         </div>
       </div>
-      <div class="card">
-        <div class="card-thumb"><span class="year-tag">—</span><span class="meta-tag">Substance Painter</span></div>
+      <div class="card" data-gallery="cathedral">
+        <div class="card-thumb has-image" style="background-image:url('img/cathedral-1.jpg')">
+          <span class="year-tag">2023</span>
+          <span class="meta-tag">Photoshop, Animate, Godot</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Cathedral — Environment Concept</div>
+          <div class="card-desc" data-i18n="art.cathedral.desc">Gothic interior design &amp; thumbnails for a personal project inspired by Blasphemous.</div>
+          <a href="#" class="card-link gallery-trigger" data-gallery="cathedral" data-i18n="art.viewGallery">View gallery</a>
+        </div>
+      </div>
+      <div class="card" data-gallery="rifle">
+        <div class="card-thumb has-image" style="background-image:url('img/rifle-1.jpg')">
+          <span class="year-tag">—</span>
+          <span class="meta-tag">Substance Painter</span>
+        </div>
         <div class="card-body">
           <div class="card-title">Rifle — Texturing Study</div>
           <div class="card-desc" data-i18n="art.rifle.desc">Hard-surface texturing practice on a third-party base mesh.</div>
-          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-thumb"><span class="year-tag">2018–Present</span><span class="meta-tag">Photoshop</span></div>
-        <div class="card-body">
-          <div class="card-title">Illustrations &amp; Concepts</div>
-          <div class="card-desc" data-i18n="art.illustrations.desc">A variety of illustrations in different art styles, including portraits, character, environment and prop concepts, and 3D assets.</div>
-          <a href="#" class="card-link" data-i18n="art.viewGallery">View gallery</a>
+          <a href="#" class="card-link gallery-trigger" data-gallery="rifle" data-i18n="art.viewGallery">View gallery</a>
         </div>
       </div>
     </div>
@@ -682,6 +706,40 @@
       { src: 'img/jumping-knight-5.jpg', caption: 'Level 3 — gameplay' },
       { src: 'img/jumping-knight-6.jpg', caption: 'Victory screen' },
     ],
+    'agents': [
+      { src: 'img/agents-1.jpg', caption: 'Agents — Character Designs' },
+    ],
+    'portraits': [
+      { src: 'img/portraits-1.jpg', caption: 'Portrait study 1' },
+      { src: 'img/portraits-2.jpg', caption: 'Portrait study 2' },
+    ],
+    'cathedral': [
+      { src: 'img/cathedral-1.jpg', caption: 'Final render — sunset exterior' },
+      { src: 'img/cathedral-2.jpg', caption: 'Moodboard & thumbnail exploration' },
+      { src: 'img/cathedral-3.jpg', caption: 'Environment thumbnails' },
+      { src: 'img/cathedral-4.jpg', caption: 'Interior background asset' },
+    ],
+    'bedroom': [
+      { src: 'img/bedroom-6.jpg', caption: 'Full room — wide angle' },
+      { src: 'img/bedroom-1.jpg', caption: 'Desk setup & bed' },
+      { src: 'img/bedroom-2.jpg', caption: 'Alternate angle' },
+      { src: 'img/bedroom-3.jpg', caption: 'Desk close-up' },
+      { src: 'img/bedroom-4.jpg', caption: 'Top-down view' },
+      { src: 'img/bedroom-5.jpg', caption: 'Wide shot — desk & TV' },
+    ],
+    'fireflies': [
+      { src: 'img/fireflies-1.jpg', caption: 'Environment lighting study' },
+    ],
+    'rifle': [
+      { src: 'img/rifle-1.jpg', caption: 'Render — side angle' },
+      { src: 'img/rifle-2.jpg', caption: 'Render — front angle' },
+    ],
+    'illustrations': [
+      { src: 'img/illustrations-1.jpg', caption: 'Totoro — fan art' },
+      { src: 'img/illustrations-2.jpg', caption: 'The Wind Rises — fan art' },
+      { src: 'img/illustrations-3.jpg', caption: 'Bookmark illustration' },
+      { src: 'img/illustrations-4.jpg', caption: 'Underwater lake study' },
+    ],
   };
 
   const lightbox = document.getElementById('lightbox');
@@ -732,9 +790,9 @@
       'nav.cv': 'Download CV', 'nav.work': 'My Work', 'nav.about': 'About Me', 'nav.contact': 'Contact',
       'hero.eyebrow': 'Madrid, Spain · Open to relocation in Europe',
       'hero.title': 'Designing <em>systems</em>, <em>characters</em> and <em>worlds</em> players want to explore.',
-      'hero.sub': 'Video game designer with a background in concept art and UX/UI teaching, specialized in character, environment, prop, UX/UI and game design in the video game industry.',
-      'hero.tag1': 'Game Design', 'hero.tag2': 'Concept Art',
-      'hero.cta1': 'View Game Design Work', 'hero.cta2': 'Get in Touch',
+      'hero.sub': 'Video game designer with a background in concept art and UX/UI teaching. Specialized in character, environment, prop, UX/UI and game design in the video game industry.',
+      'hero.skill1label': 'Video Game Engines', 'hero.skill2label': 'Art & 3D Tools', 'hero.skill3label': 'UX/UI Tools',
+      'hero.skill4label': 'Dev Environments', 'hero.skill5label': 'Programming Languages',
       'work.title': 'Selected Work', 'work.tab1': 'Game Design', 'work.tab2': 'Art & Illustration',
       'proj.viewDetails': 'View Details', 'proj.playItch': 'Play on itch.io',
       'proj.creature.desc': 'Turn-based combat RPG with open-world exploration where the player must capture and train a variety of creatures to complete their adventure. Unreleased due to IP restrictions.',
@@ -748,6 +806,7 @@
       'art.fireflies.desc': 'Environment lighting study built in Unreal Engine, composited with Photoshop.',
       'art.rifle.desc': 'Hard-surface texturing practice on a third-party base mesh.',
       'art.illustrations.desc': 'A variety of illustrations in different art styles, including portraits, character, environment and prop concepts, and 3D assets.',
+      'art.portraits.desc': 'Digital portrait studies exploring color, lighting and mood through monochromatic palettes.',
       'about.title': 'About Me', 'about.hi': "Hi, I'm Mario",
       'about.p1': '— a video game designer with a background in concept art and UX/UI teaching. Specialized in character, environment, prop, UX/UI and game design in the video game industry.',
       'about.p2': 'Experience working in graphic design, 3D modeling, texturing and animation, across various programming environments and video game engines.',
@@ -765,9 +824,9 @@
       'nav.cv': 'Descargar CV', 'nav.work': 'Mi Trabajo', 'nav.about': 'Sobre Mí', 'nav.contact': 'Contacto',
       'hero.eyebrow': 'Madrid, España · Disponible para reubicación en Europa',
       'hero.title': 'Diseñando <em>sistemas</em>, <em>personajes</em> y <em>mundos</em> que los jugadores quieren explorar.',
-      'hero.sub': 'Diseñador de videojuegos con formación en arte conceptual y docencia UX/UI, especializado en personajes, entornos, props, UX/UI y diseño de juego en la industria del videojuego.',
-      'hero.tag1': 'Game Design', 'hero.tag2': 'Concept Art',
-      'hero.cta1': 'Ver Trabajo de Diseño', 'hero.cta2': 'Contactar',
+      'hero.sub': 'Diseñador de videojuegos con formación en arte conceptual y docencia UX/UI. Especializado en personajes, entornos, props, UX/UI y diseño de juego en la industria del videojuego.',
+      'hero.skill1label': 'Motores de Videojuego', 'hero.skill2label': 'Herramientas de Arte y 3D', 'hero.skill3label': 'Herramientas UX/UI',
+      'hero.skill4label': 'Entornos de Desarrollo', 'hero.skill5label': 'Lenguajes de Programación',
       'work.title': 'Mis proyectos', 'work.tab1': 'Game Design', 'work.tab2': 'Arte e Ilustración',
       'proj.viewDetails': 'Ver Detalles', 'proj.playItch': 'Jugar en itch.io',
       'proj.creature.desc': 'RPG de combate por turnos con exploración de mundo abierto, donde el jugador debe capturar y entrenar diversas criaturas para completar su aventura. No publicado por restricciones de propiedad intelectual.',
@@ -781,6 +840,7 @@
       'art.fireflies.desc': 'Estudio de iluminación de entornos realizado en Unreal Engine, compuesto con Photoshop.',
       'art.rifle.desc': 'Práctica de texturizado hard-surface sobre una malla base de terceros.',
       'art.illustrations.desc': 'Una variedad de ilustraciones en distintos estilos artísticos, incluyendo retratos, conceptos de personajes, entornos, props y assets 3D.',
+      'art.portraits.desc': 'Estudios de retrato digital que exploran el color, la iluminación y la atmósfera a través de paletas monocromáticas.',
       'about.title': 'Sobre Mí', 'about.hi': 'Hola, soy Mario',
       'about.p1': '— diseñador de videojuegos con formación en arte conceptual y docencia UX/UI. Especializado en personajes, entornos, props, UX/UI y diseño de juego en la industria del videojuego.',
       'about.p2': 'Experiencia trabajando en diseño gráfico, modelado 3D, texturizado y animación, en diversos entornos de programación y motores de videojuego.',
@@ -798,9 +858,9 @@
       'nav.cv': 'Lebenslauf herunterladen', 'nav.work': 'Meine Arbeit', 'nav.about': 'Über Mich', 'nav.contact': 'Kontakt',
       'hero.eyebrow': 'Madrid, Spanien · Offen für Umzug innerhalb Europas',
       'hero.title': 'Gestaltung von <em>Systemen</em>, <em>Charakteren</em> und <em>Welten</em>, die Spieler erkunden möchten.',
-      'hero.sub': 'Videospieldesigner mit Hintergrund in Concept Art und UX/UI-Lehre, spezialisiert auf Charakter-, Umgebungs- und Prop-Design, UX/UI sowie Game Design in der Videospielbranche.',
-      'hero.tag1': 'Game Design', 'hero.tag2': 'Concept Art',
-      'hero.cta1': 'Game-Design-Arbeiten ansehen', 'hero.cta2': 'Kontakt aufnehmen',
+      'hero.sub': 'Videospieldesigner mit Hintergrund in Concept Art und UX/UI-Lehre. Spezialisiert auf Charakter-, Umgebungs- und Prop-Design, UX/UI sowie Game Design in der Videospielbranche.',
+      'hero.skill1label': 'Spiel-Engines', 'hero.skill2label': 'Kunst- & 3D-Tools', 'hero.skill3label': 'UX/UI-Tools',
+      'hero.skill4label': 'Entwicklungsumgebungen', 'hero.skill5label': 'Programmiersprachen',
       'work.title': 'Ausgewählte Arbeiten', 'work.tab1': 'Game Design', 'work.tab2': 'Kunst & Illustration',
       'proj.viewDetails': 'Details ansehen', 'proj.playItch': 'Auf itch.io spielen',
       'proj.creature.desc': 'Rundenbasiertes Kampf-RPG mit Open-World-Erkundung, bei dem der Spieler verschiedene Kreaturen fangen und trainieren muss, um sein Abenteuer zu vollenden. Aufgrund von Urheberrechtsbeschränkungen nicht veröffentlicht.',
@@ -814,6 +874,7 @@
       'art.fireflies.desc': 'Beleuchtungsstudie einer Umgebung, erstellt in Unreal Engine, zusammengesetzt mit Photoshop.',
       'art.rifle.desc': 'Hard-Surface-Texturierungsübung auf einem Basis-Mesh eines Drittanbieters.',
       'art.illustrations.desc': 'Verschiedene Illustrationen in unterschiedlichen Stilen, darunter Porträts, Charakter-, Umgebungs- und Prop-Konzepte sowie 3D-Assets.',
+      'art.portraits.desc': 'Digitale Porträtstudien, die Farbe, Licht und Stimmung durch monochromatische Paletten erkunden.',
       'about.title': 'Über Mich', 'about.hi': 'Hallo, ich bin Mario',
       'about.p1': '— ein Videospieldesigner mit Hintergrund in Concept Art und UX/UI-Lehre. Spezialisiert auf Charakter-, Umgebungs- und Prop-Design, UX/UI sowie Game Design in der Videospielbranche.',
       'about.p2': 'Erfahrung in Grafikdesign, 3D-Modellierung, Texturierung und Animation in verschiedenen Programmierumgebungen und Spiel-Engines.',
